@@ -24,17 +24,21 @@ public class ResponsibleModel implements Serializable {
     private String apartment;
     @Column(nullable = false, length = 30)
     private String block;
+    @Column(nullable = false)
+    private String email;
+
     @JsonIgnore
     @OneToMany(mappedBy = "responsible")
     private Set<CarModel> cars = new HashSet<>();
 
     public ResponsibleModel() {}
 
-    public ResponsibleModel(UUID id, String name, String apartment, String block, Set<CarModel> cars) {
+    public ResponsibleModel(UUID id, String name, String apartment, String block, String email,Set<CarModel> cars) {
         this.id = id;
         this.name = name;
         this.apartment = apartment;
         this.block = block;
+        this.email = email;
         this.cars = cars;
     }
 
@@ -72,5 +76,13 @@ public class ResponsibleModel implements Serializable {
 
     public Set<CarModel> getCars() {
         return cars;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

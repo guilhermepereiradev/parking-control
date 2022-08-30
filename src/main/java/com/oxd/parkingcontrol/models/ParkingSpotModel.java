@@ -3,6 +3,7 @@ package com.oxd.parkingcontrol.models;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -12,19 +13,23 @@ public class ParkingSpotModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column(nullable = false, unique= true, length = 10)
     private String parkingSpotNumber;
-    @OneToOne(mappedBy = "parkingSpot", cascade = CascadeType.ALL)
+
+    @OneToOne
+    @JoinColumn(name = "car_id", unique = true)
     private CarModel car;
+    @Column(nullable = false)
+    private LocalDateTime registrationDate;
 
     public ParkingSpotModel(){}
 
-    public ParkingSpotModel(UUID id, String parkingSpotNumber, CarModel car) {
+    public ParkingSpotModel(UUID id, String parkingSpotNumber, LocalDateTime registrationDate) {
         this.id = id;
         this.parkingSpotNumber = parkingSpotNumber;
-        this.car = car;
+        this.registrationDate = registrationDate;
     }
 
     public UUID getId() {
@@ -49,5 +54,13 @@ public class ParkingSpotModel implements Serializable {
 
     public void setCar(CarModel car) {
         this.car = car;
+    }
+
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
     }
 }

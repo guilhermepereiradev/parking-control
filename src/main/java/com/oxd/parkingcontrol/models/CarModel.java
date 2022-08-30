@@ -14,9 +14,9 @@ public class CarModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Column(nullable = false, unique = true, length = 7)
+    @Column(nullable = false, length = 7)
     private String licensePlate;
     @Column(nullable = false, length = 70)
     private String brand;
@@ -24,11 +24,6 @@ public class CarModel implements Serializable {
     private String model;
     @Column(nullable = false, length = 70)
     private String color;
-    @Column(nullable = false)
-    private LocalDateTime registrationDate;
-    @JsonIgnore
-    @OneToOne
-    private ParkingSpotModel parkingSpot;
 
     @ManyToOne
     @JoinColumn(name = "responsible_id", nullable = false)
@@ -36,15 +31,12 @@ public class CarModel implements Serializable {
 
     public CarModel() {}
 
-    public CarModel(UUID id, String licensePlateCar, String brandCar, String modelCar, String colorCar, LocalDateTime registrationDate, ParkingSpotModel parkingSpot, ResponsibleModel responsible) {
+    public CarModel(UUID id, String licensePlate, String brand, String model, String color) {
         this.id = id;
-        this.licensePlate = licensePlateCar;
-        this.brand = brandCar;
-        this.model = modelCar;
-        this.color = colorCar;
-        this.registrationDate = registrationDate;
-        this.parkingSpot = parkingSpot;
-        this.responsible = responsible;
+        this.licensePlate = licensePlate;
+        this.brand = brand;
+        this.model = model;
+        this.color = color;
     }
 
     public UUID getId() {
@@ -59,48 +51,32 @@ public class CarModel implements Serializable {
         return licensePlate;
     }
 
-    public void setLicensePlate(String licensePlateCar) {
-        this.licensePlate = licensePlateCar;
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
     public String getBrand() {
         return brand;
     }
 
-    public void setBrand(String brandCar) {
-        this.brand = brandCar;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getModel() {
         return model;
     }
 
-    public void setModel(String modelCar) {
-        this.model = modelCar;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getColor() {
         return color;
     }
 
-    public void setColorCar(String colorCar) {
-        this.color = colorCar;
-    }
-
-    public LocalDateTime getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(LocalDateTime registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public ParkingSpotModel getParkingSpot() {
-        return parkingSpot;
-    }
-
-    public void setParkingSpot(ParkingSpotModel parkingSpot) {
-        this.parkingSpot = parkingSpot;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public ResponsibleModel getResponsible() {

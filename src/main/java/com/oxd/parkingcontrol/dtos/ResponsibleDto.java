@@ -1,14 +1,11 @@
 package com.oxd.parkingcontrol.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.oxd.parkingcontrol.models.CarModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+
 
 public class ResponsibleDto {
 
@@ -21,7 +18,8 @@ public class ResponsibleDto {
     @NotBlank
     @Size(max = 30)
     private String block;
-    @Column(nullable = false)
+    @NotBlank
+    @Email
     private String email;
 
     public String getName() {

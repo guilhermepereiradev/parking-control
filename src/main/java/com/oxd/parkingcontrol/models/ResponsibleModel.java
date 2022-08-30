@@ -10,13 +10,13 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TB_RESPONSILBE")
+@Table(name = "TB_RESPONSIBLE")
 public class ResponsibleModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column(nullable = false, length = 130)
     private String name;
@@ -24,22 +24,21 @@ public class ResponsibleModel implements Serializable {
     private String apartment;
     @Column(nullable = false, length = 30)
     private String block;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "responsible")
+    @OneToMany(mappedBy = "responsible", cascade = CascadeType.ALL)
     private Set<CarModel> cars = new HashSet<>();
 
     public ResponsibleModel() {}
 
-    public ResponsibleModel(UUID id, String name, String apartment, String block, String email,Set<CarModel> cars) {
+    public ResponsibleModel(UUID id, String name, String apartment, String block, String email) {
         this.id = id;
         this.name = name;
         this.apartment = apartment;
         this.block = block;
         this.email = email;
-        this.cars = cars;
     }
 
     public UUID getId() {

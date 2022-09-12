@@ -18,7 +18,7 @@ public class ParkingSpotModel implements Serializable {
     @Column(nullable = false, unique= true, length = 10)
     private String parkingSpotNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id", unique = true)
     private CarModel car;
     @Column(nullable = false)

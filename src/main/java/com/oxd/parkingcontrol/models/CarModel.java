@@ -25,7 +25,7 @@ public class CarModel implements Serializable {
     @Column(nullable = false, length = 70)
     private String color;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "responsible_id", nullable = false)
     private ResponsibleModel responsible;
 
